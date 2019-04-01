@@ -1,5 +1,3 @@
-start code
-
 import datetime
 import tkinter as tk
 from tkinter import *
@@ -14,69 +12,16 @@ def to_usd(my_price):
 #https://docs.python.org/3/library/tkinter.html
 #http://effbot.org/tkinterbook/listbox.htm 
 
-master = Tk()
+print ("Please select the number of bedrooms from the following dropdown menu:")
+t = datetime.datetime.now()
+print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
 
-v = IntVar()
-
-Radiobutton(master, text="One", variable=v, value=1).pack(anchor=W)
-Radiobutton(master, text="Two", variable=v, value=2).pack(anchor=W)
-
-MODES = [
-
-    ("Monochrome", "1"),
-    ("Grayscale", "L"),
-    ("True color", "RGB"),
-    ("Color separation", "CMYK"),
-]
-v = StringVar()
-v.set("L") # initialize
-
-for text, mode in MODES:
-    b = Radiobutton(master, text=text,
-                    variable=v, value=mode)
-    b.pack(anchor=W)
-
-class Application(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.master = master
-        self.pack()
-        self.create_widgets()
-
-    def create_widgets(self):
-        self.hi_there = tk.Button(self)
-        self.hi_there["text"] = "Hello World\n(click me)"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.pack(side="top")
-
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
-        self.quit.pack(side="bottom")
-
-    def say_hi(self):
-        print("hi there, everyone!")
-
-root = tk.Tk()
-app = Application(master=root)
-app.mainloop()
-
-mainloop()
-
-
-
-
-
-breakpoint 
-
-#if "Other, please specify" is selected:
-    #master = 0
-    #e = Entry(master)
-    #e.pack()
-
-    #e.delete(0, END)
-    #e.insert(0, "a default value")
-#else:
-    #break
+OPTIONS = [ 
+"One bedroom",
+"Two bedrooms",
+"Three bedrooms",
+"More than three bedrooms"
+] 
 
 master = Tk()
 
@@ -87,17 +32,40 @@ w = OptionMenu(master, variable, *OPTIONS)
 w.pack()
 
 def ok():
-    print ("value is:" + variable.get())
+    print ("value is: " + variable.get())
 
 button = Button(master, text="OK", command=ok)
 button.pack()
 
+print ("----------------")
+breakpoint 
+
+print ("Please select the number of bedrooms from the following dropdown menu:")
+OPTIONS = [ 
+"One bedroom",
+"Two bedrooms",
+"Three bedrooms",
+"More than three bedrooms"
+] 
+
+master = Tk()
+
+variable = StringVar(master)
+variable.set(OPTIONS[0]) # default value
+
+w = OptionMenu(master, variable, *OPTIONS)
+w.pack()
+
+def ok():
+    print ("value is: " + variable.get())
+
+button = Button(master, text="OK", command=ok)
+button.pack()
+
+
+
 mainloop()
 
-
-#timestamp input
-t = datetime.datetime.now()
-print("Last Run: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
 
 
 #access url and record price movements and new listings
@@ -113,8 +81,3 @@ print("Last Run: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) #http
 
 
 #send user an email notification and text notification letting them know
-
-
-
-
-
