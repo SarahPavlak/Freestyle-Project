@@ -1,13 +1,15 @@
 import datetime
 import tkinter as tk
 from tkinter import *
+from bs4 import BeautifulSoup
+import requests
 
-def to_usd(my_price):
-    return "${0:,.2f}".format(my_price) #https://github.com/s2t2/robo-advisor-screencast/blob/alt-solution/app/robo_advisor.py
 
+print("To start, please input your apartment preferences")
+
+#https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
 #!/usr/bin/python3
 #collecting user inputs
-print("Please input your desired qualifications and press show followed by quit when done. ")
 fields = 'Desired Bedroom', 'Desired Bathroom','Monthly Budget'
 
 def fetch(entries):
@@ -47,37 +49,55 @@ print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m
 #!/usr/bin/python3
 #https://www.python-course.eu/tkinter_entry_widgets.php
 
+#-----------------------------------------------------------------------------------------------------------------
+breakpoint
 
-#create a google spreadsheet collecting the data
+Apartment_Buildings = [
+    {"id":1, "name": "Ballston Square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
+    {"id":2, "name": "Ava Ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
+    #to add more apartments within Avalon family
+]
 
+def product_name(any_product):
+    return any_product["name"]
 
+l = []
+for p in Apartment_Buildings:
+   l.append(p["name"])
 
-#beautiful soup website scraping
+Apartment_Buildings = list(set(l))
+Apartment_Buildings = sorted(Apartment_Buildings)
 
-from bs4 import BeautifulSoup
-import requests
+print("----------------------------------------------------------------------------")
+print("Below are potential Avalon apartments, please input one of the following:")
+for p in Apartment_Buildings:
+   print(p)
 
-page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans'
-page_response = requests.get(page_link, timeout=5)
-page_content = BeautifulSoup(page_response.content, "html.parser")
+#to allow users to click on one of the above
 
-textContent = []
-for i in range(0, 20):
+breakpoint 
+
+user_input = input ("Please input desired apartments: ")
+if user_input == ("Ballston Square"):
+    page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans'
+    
+    page_response = requests.get(page_link, timeout=5)
+    page_content = BeautifulSoup(page_response.content, "html.parser")  
+
+    textContent = []
+    for i in range(0, 20):
+        paragraphs = page_content.find_all("p")[i].text
+        textContent.append(paragraphs)
+
     paragraphs = page_content.find_all("p")[i].text
-    textContent.append(paragraphs)
 
-paragraphs = page_content.find_all("p")[i].text
+    print(paragraphs)
 
-print(paragraphs)
+
+else:
+    print ("Oh no!")
+
+breakpoint 
 
 #https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
-
-#create an app to schedule notifications
-
-
-
-
-
-
-
-#to-do: validate the user inputs
+#to capture more user requests/ give them some kind of dropdown
