@@ -2,82 +2,61 @@ import datetime
 import tkinter as tk
 from tkinter import *
 
-
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price) #https://github.com/s2t2/robo-advisor-screencast/blob/alt-solution/app/robo_advisor.py
 
-#collect user input of desired apartment url, number of bedrooms and bathrooms
-#https://docs.python.org/3/library/tkinter.html
-#https://stackoverflow.com/questions/45441885/how-can-i-create-a-dropdown-menu-from-a-list-in-tkinter/45442534#45442534
-#https://docs.python.org/3/library/tkinter.html
-#http://effbot.org/tkinterbook/listbox.htm 
+#!/usr/bin/python3
+#collecting user inputs
+print("Please input your desired qualifications and press show followed by quit when done. ")
+fields = 'Desired Bedroom', 'Desired Bathroom','Monthly Budget'
 
-print ("Please select the number of bedrooms from the following dropdown menu:")
+def fetch(entries):
+   for entry in entries:
+      field = entry[0]
+      text  = entry[1].get()
+      print('%s: "%s"' % (field, text)) 
+
+def makeform(root, fields):
+   entries = []
+   for field in fields:
+      row = Frame(root)
+      lab = Label(row, width=15, text=field, anchor='w')
+      ent = Entry(row)
+      row.pack(side=TOP, fill=X, padx=5, pady=5)
+      lab.pack(side=LEFT)
+      ent.pack(side=RIGHT, expand=YES, fill=X)
+      entries.append((field, ent))
+   return entries
+
+if __name__ == '__main__':
+   root = Tk()
+   ents = makeform(root, fields)
+   root.bind('<Return>', (lambda event, e=ents: fetch(e)))   
+   b1 = Button(root, text='Show',
+          command=(lambda e=ents: fetch(e)))
+   b1.pack(side=LEFT, padx=5, pady=5)
+   b2 = Button(root, text='Quit', command=root.quit)
+   b2.pack(side=LEFT, padx=5, pady=5)
+   root.mainloop()
+
+exit
+
 t = datetime.datetime.now()
 print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
 
-OPTIONS = [ 
-"One bedroom",
-"Two bedrooms",
-"Three bedrooms",
-"More than three bedrooms"
-] 
+#!/usr/bin/python3
+#https://www.python-course.eu/tkinter_entry_widgets.php
 
-master = Tk()
 
-variable = StringVar(master)
-variable.set(OPTIONS[0]) # default value
-
-w = OptionMenu(master, variable, *OPTIONS)
-w.pack()
-
-def ok():
-    print ("value is: " + variable.get())
-
-button = Button(master, text="OK", command=ok)
-button.pack()
-
-print ("----------------")
-breakpoint 
-
-print ("Please select the number of bedrooms from the following dropdown menu:")
-OPTIONS = [ 
-"One bedroom",
-"Two bedrooms",
-"Three bedrooms",
-"More than three bedrooms"
-] 
-
-master = Tk()
-
-variable = StringVar(master)
-variable.set(OPTIONS[0]) # default value
-
-w = OptionMenu(master, variable, *OPTIONS)
-w.pack()
-
-def ok():
-    print ("value is: " + variable.get())
-
-button = Button(master, text="OK", command=ok)
-button.pack()
+#create a google spreadsheet collecting the data
 
 
 
-mainloop()
 
-
-
-#access url and record price movements and new listings
+#create an app to schedule notifications
 
 
 
 
 
-#create a google spreadsheet collecting the data 
-
-
-
-
-
-#send user an email notification and text notification letting them know
+#to-do: validate the user inputs
