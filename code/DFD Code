@@ -52,8 +52,29 @@ print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m
 
 
 
+#beautiful soup website scraping
+
+from bs4 import BeautifulSoup
+import requests
+
+page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans'
+page_response = requests.get(page_link, timeout=5)
+page_content = BeautifulSoup(page_response.content, "html.parser")
+
+textContent = []
+for i in range(0, 20):
+    paragraphs = page_content.find_all("p")[i].text
+    textContent.append(paragraphs)
+
+paragraphs = page_content.find_all("p")[i].text
+
+print(paragraphs)
+
+#https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
 
 #create an app to schedule notifications
+
+
 
 
 
