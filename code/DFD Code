@@ -78,7 +78,7 @@ for p in Apartment_Buildings:
 breakpoint 
 
 user_input = input ("Please input desired apartments: ")
-if user_input == ("Ballston Square"):
+if user_input in (Apartment_Buildings):
     page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans'
     
     page_response = requests.get(page_link, timeout=5)
@@ -101,3 +101,4 @@ breakpoint
 
 #https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
 #to capture more user requests/ give them some kind of dropdown
+#to validate user inputs 
