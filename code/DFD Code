@@ -9,7 +9,7 @@ print("To start, please input your apartment preferences")
 
 #https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
 #!/usr/bin/python3
-#collecting user inputs
+#collecting user inputs with tinktr
 fields = 'Desired Bedroom', 'Desired Bathroom','Monthly Budget'
 
 def fetch(entries):
@@ -49,18 +49,19 @@ print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m
 #!/usr/bin/python3
 #https://www.python-course.eu/tkinter_entry_widgets.php
 
-#-----------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------- Apartment Selection
 breakpoint
 
 Apartment_Buildings = [
-    {"id":1, "name": "Ballston Square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
-    {"id":2, "name": "Ava Ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
+    {"id":1, "name": "avalon-ballston-square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
+    {"id":2, "name": "ava-ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
     #to add more apartments within Avalon family
 ]
 
 def product_name(any_product):
     return any_product["name"]
 
+#----------------------------------------------------- Apartment Names List
 l = []
 for p in Apartment_Buildings:
    l.append(p["name"])
@@ -73,13 +74,12 @@ print("Below are potential Avalon apartments, please input one of the following:
 for p in Apartment_Buildings:
    print(p)
 
-#to allow users to click on one of the above
-
+#----------------------------------------------------Collecting User Inputs
 breakpoint 
 
 user_input = input ("Please input desired apartments: ")
 if user_input in (Apartment_Buildings):
-    page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans'
+    page_link = 'https://www.avaloncommunities.com/virginia/arlington-apartments/' + str(user_input) + '/floor-plans'
     
     page_response = requests.get(page_link, timeout=5)
     page_content = BeautifulSoup(page_response.content, "html.parser")  
@@ -95,10 +95,15 @@ if user_input in (Apartment_Buildings):
 
 
 else:
-    print ("Oh no!")
+    print ("Oh no! The inputted apartment is not an option, would you like to try again?")
 
 breakpoint 
 
+
+
 #https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
-#to capture more user requests/ give them some kind of dropdown
-#to validate user inputs 
+#to validate bedroom, bathroom budget options
+#to give the user the option to try again if they don't get it right 
+#potential: to click? 
+#to fix beautiful soup inputs
+#todo set up email notifications 
