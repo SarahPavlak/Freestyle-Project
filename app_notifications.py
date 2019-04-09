@@ -1,4 +1,9 @@
+
+# adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/sendgrid.md
+
 import os
+import pprint
+
 from dotenv import load_dotenv
 import sendgrid
 from sendgrid.helpers.mail import * # source of Email, Content, Mail, etc.
@@ -16,8 +21,9 @@ sg = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
 
 from_email = Email(MY_EMAIL_ADDRESS)
 to_email = Email(MY_EMAIL_ADDRESS)
-subject = "Hello World from the SendGrid Python Library!"
-content = Content("text/plain", "Hello, Email!")
+subject = "Example Notification"
+message_text = "Hello, \n\nThis is a message from your personal notification service.\n\nCustomize this example notification content to make it useful for you! Maybe weather info? Maybe stock prices? Let your creativity guide you!"
+content = Content("text/plain", message_text)
 mail = Mail(from_email, subject, to_email, content)
 
 # ISSUE REQUEST (SEND EMAIL)
@@ -26,8 +32,14 @@ response = sg.client.mail.send.post(request_body=mail.get())
 
 # PARSE RESPONSE
 
-print(response.status_code) 
-print(response.body) 
-print(response.headers)
+pp = pprint.PrettyPrinter(indent=4)
 
-#https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/notes/python/packages/sendgrid.md
+print("----------------------")
+print("EMAIL")
+print("----------------------")
+print("RESPONSE: ", type(response))
+print("STATUS:", response.status_code) #> 202 means success
+print("HEADERS:")
+pp.pprint(dict(response.headers))
+print("BODY:")
+print(response.body) #> this might be empty. it's ok.)
