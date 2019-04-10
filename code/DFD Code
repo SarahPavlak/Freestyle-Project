@@ -10,36 +10,74 @@ print("To start, please input your apartment preferences")
 #https://codeburst.io/web-scraping-101-with-python-beautiful-soup-bb617be1f486
 #!/usr/bin/python3
 #collecting user inputs with tinktr
-fields = 'Desired Bedroom', 'Desired Bathroom','Monthly Budget'
 
-def fetch(entries):
-   for entry in entries:
-      field = entry[0]
-      text  = entry[1].get()
-      print('%s: "%s"' % (field, text)) 
+import tkinter as tk
+from tkinter import *
 
-def makeform(root, fields):
-   entries = []
-   for field in fields:
-      row = Frame(root)
-      lab = Label(row, width=15, text=field, anchor='w')
-      ent = Entry(row)
-      row.pack(side=TOP, fill=X, padx=5, pady=5)
-      lab.pack(side=LEFT)
-      ent.pack(side=RIGHT, expand=YES, fill=X)
-      entries.append((field, ent))
-   return entries
+def bed():
+    value=[l1.get(i) for i in l1.curselection()]
+    print("You have selected: ")
+    print(value)
 
-if __name__ == '__main__':
-   root = Tk()
-   ents = makeform(root, fields)
-   root.bind('<Return>', (lambda event, e=ents: fetch(e)))   
-   b1 = Button(root, text='Show',
-          command=(lambda e=ents: fetch(e)))
-   b1.pack(side=LEFT, padx=5, pady=5)
-   b2 = Button(root, text='Quit', command=root.quit)
-   b2.pack(side=LEFT, padx=5, pady=5)
-   root.mainloop()
+def bath():
+    value=[l2.get(i) for i in l2.curselection()]
+    print("You have selected: ")
+    print(value)
+
+def budget():
+    value=[l3.get(i) for i in l3.curselection()]
+    print(value)
+
+w1= Tk()
+w1.title('Apartment Selection App')
+
+l1= Listbox(w1, selectmode= MULTIPLE, height= 10, width= 20)
+l2= Listbox(w1, selectmode= MULTIPLE, width= 20)
+l3= Entry(width= 20)
+
+#Bedroom Selection-------------------------------------------------------
+T = Text(w1, height=2, width=30)
+T.pack()
+T.insert(END, "Please select your desired\n number of bedrooms: ")
+
+bedroom= ['Studio', 'One Bedroom', 'Two Bedroom','Other']
+for val in bedroom:
+    l1.insert(END, val)
+l1.pack()
+
+b1=Button(text= 'Select', command=bed)
+b1.pack()
+
+#Bathroom Selection-------------------------------------------------------
+T = Text(w1, height=2, width=30)
+T.pack()
+T.insert(END, "Please select your desired\n number of bathrooms: ")
+
+bathroom= ['One bathroom', 'Two bathrooms', 'More than two bathrooms']
+for val in bathroom:
+    l2.insert(END, val)
+l2.pack()
+
+b2=Button(text= 'Select', command=bath)
+b2.pack()
+
+#Budget Selection-------------------------------------------------------
+T = Text(w1, height=2, width=30)
+T.pack()
+T.insert(END, "Please input your budget: ")
+
+budget= ['one']
+for val in budget:
+    l3.pack()
+
+b3=Button(text='Enter', command=budget)
+b3.pack()
+
+#Quit Button-----------------------------------------------------------
+b4 = Button(w1, text='Quit', command=w1.quit)
+b4.pack()
+
+w1.mainloop()
 
 exit
 
